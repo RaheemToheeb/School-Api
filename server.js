@@ -12,10 +12,10 @@
 // app.listen(port,()=>{
 //     console.log(`I am active on port ${port}`)
 // })
-
+require ('dotenv').config();
 const express = require("express");
 const myRoute = require ("./router")
-const port = 9495
+const port = process.env.PORT || 9495
 require ("./db/config")
 const app=express()
 app.use(express.json())

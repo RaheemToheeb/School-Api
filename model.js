@@ -95,12 +95,12 @@ userSchema=mongoose.Schema({
     },
     cloud_url: {
         type:String,
-        required:true
+        // required:true
          },
 
-         Cloud_id: {
+         Cloudid: {
             type:String,
-            required:true
+            // required:true
              }
 })
 

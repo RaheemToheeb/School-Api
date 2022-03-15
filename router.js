@@ -10,7 +10,7 @@ router.post("/blog",imageUploader,createSchool)
 router.get("/get", getUser)
 router.get("/get/:id", getoneUser)
 router.patch("/update/:id", updateOne)
-router.delete("/delete/:id", deleteOne)
+// router.delete("/delete/:id", deleteOne)
 router.delete("/deleteschool/:id", deleteOneSchool)
 
 

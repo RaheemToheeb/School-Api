@@ -1,7 +1,7 @@
 
 const  cloudinary = require('./db/cloudinary')
 const userSchema=require("./model")
-
+const fs = require ("fs")
 const postUser= async (req,res)=>{
     try {
         const newUser=await userSchema.create({
@@ -77,7 +77,7 @@ const createSchool = async (req,res) => {
             schoolImage:req.file.path,
             dateCreated:req.body.dateCreated,
             cloud_url:result.secure_url,
-            cloud_id:result.public_id
+            cloudid:result.public_id
 
         })
         res.status(201).json({status:"Successful",data:blog})
@@ -89,20 +89,22 @@ const createSchool = async (req,res) => {
 
 const deleteOneSchool=async (req,res)=>{
     try {
-        
+        const id = req.params.id
+        // const school = await userSchema.findByIdAndDelete(id)
+        const school = await userSchema.findById(id)
         
         // if(!id){
         //     res.status(404).json({status:"Fail",message:`You're passing the wrong ID:${id}`})
         // }
-        const id = req.params.id
-        const school = await userSchema.findByIdAndDelete(id)
+        
+
         // id=req.params.id
         // await cloudinary.uploader.destroy(school.public_id)
-        await cloudinary.uploader.destroy(school.cloud_id)
+        await cloudinary.uploader.destroy(school.cloudid)
         
         await fs.unlinkSync(school.schoolImage)
-        // await userSchema.findByIdAndRemove(id)
-        res.status(204).json({status:"delete"})
+        await userSchema.findByIdAndRemove(id)
+        res.status(204).json({status:"delete",data:deleted})
     } catch (error) {
         res.status(404).json({Status:"Failed",message:error.message})
     }
