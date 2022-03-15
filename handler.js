@@ -66,6 +66,18 @@ const deleteOne=async (req,res)=>{
         res.status(404).json({Status:"Cant delete user"})
     }
 }
+
+const deleteMany=async (req,res)=>{
+    try {
+        // id=req.params.id
+        const deleteAll= await userSchema.deleteMany();
+        res.status(200).json({Status:"Successful",data:deleteAll})
+        }
+        
+ catch (error) {
+        res.status(404).json({Status:"Cant delete user"})
+    }
+}
 // Creating using cloudinary
 const createSchool = async (req,res) => {
     try {
@@ -77,7 +89,7 @@ const createSchool = async (req,res) => {
             schoolImage:req.file.path,
             dateCreated:req.body.dateCreated,
             cloud_url:result.secure_url,
-            cloudid:result.public_id
+            cloud_id:result.public_id
 
         })
         res.status(201).json({status:"Successful",data:blog})
@@ -118,5 +130,6 @@ const deleteOneSchool=async (req,res)=>{
     updateOne,
     deleteOne,
     deleteOneSchool,
+    deleteMany,
     createSchool,
 }
